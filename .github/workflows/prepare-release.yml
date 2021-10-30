@@ -31,8 +31,6 @@ jobs:
           token: ${{ secrets.token }}
           ref: ${{ inputs.target_branch }}
       - uses: pnpm/action-setup@v2.0.1
-        with:
-          version: ${{ secrets.PNPM_VERSION }}
       - name: Use Node.js
         uses: actions/setup-node@v2
         with:
