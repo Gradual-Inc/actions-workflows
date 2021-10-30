@@ -6,14 +6,17 @@ on:
       previous_tag:
         description: 'Previous Tag used to generate change log'
         required: false
+        type: string
       target_branch:
         description: 'Target branch use for release, default development'
         required: false
         default: 'development'
+        type: string
       deploy_workflow_name:
         description: 'Name of deploy workflow'
         required: false
         default: 'Deploy EKS'
+        type: string
     secrets:
       token:
         required: true
