@@ -51,7 +51,7 @@ jobs:
         uses: martinbeentjes/npm-get-version-action@master
       - name: Build Changelog
         id: github_release
-        uses: mikepenz/release-changelog-builder-action@v1
+        uses: mikepenz/release-changelog-builder-action@main
         with:
           ignorePreReleases: true
           fromTag: ${{ inputs.previous_tag}}
