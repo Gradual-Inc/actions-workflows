@@ -14,7 +14,7 @@
 	    }
 	],
 	"sort": "ASC",
-	"template": "Changes from: ${{FROM_TAG}} to: ${{TO_TAG}}\n ${{CHANGELOG}}\n\n<details>\n<summary>Uncategorized</summary>\n\n${{UNCATEGORIZED}}\n</details>",
+	"template": "Changes from: ${{FROM_TAG}} to: ${{TO_TAG}}\n ${{CHANGELOG}}\n\n## Others\n${{UNCATEGORIZED}}",
 	"pr_template": "- ${{TITLE}} #${{NUMBER}} @${{AUTHOR}}\n  - merged at: ${{MERGED_AT}}\n  - reviewed by: ${{REVIEWERS}}",
 	"empty_template": "No Changes",
 	"max_tags_to_fetch": 200,
