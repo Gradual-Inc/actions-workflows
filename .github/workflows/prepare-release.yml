@@ -1,0 +1,72 @@
+name: Prepare Release
+
+on:
+  workflow_call:
+    inputs:
+      previous_tag:
+        description: 'Previous Tag used to generate change log'
+        required: false
+      target_branch:
+        description: 'Target branch use for release, default development'
+        required: false
+        default: 'development'
+      deploy_workflow_name:
+        description: 'Name of deploy workflow'
+        required: false:
+        default: 'Deploy EKS'
+    secrets:
+      token:
+        required: true
+jobs:
+  bump_version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: hmarr/debug-action@v2
+      - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+          token: ${{ secrets.token }}
+          ref: ${{ inputs.target_branch }}
+      - uses: pnpm/action-setup@v2.0.1
+        with:
+          version: ${{ secrets.PNPM_VERSION }}
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '12.x'
+          registry-url: https://npm.pkg.github.com
+      - run: git config --global user.email "github@sfelc.com" && git config --global user.name "Github Actions"
+      - run: npm version minor -m "[skip ci] bump version to %s"
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.token }}
+          branch: ${{ steps.branch-name.outputs.current_branch }}
+          tags: true
+      - name: get-npm-version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@master
+      - name: Build Changelog
+        id: github_release
+        uses: mikepenz/release-changelog-builder-action@v1
+        with:
+          ignorePreReleases: true
+          fromTag: ${{ inputs.previous_tag}}
+          toTag: v${{ steps.package-version.outputs.current-version}}
+        env:
+          GITHUB_TOKEN: ${{ secrets.token }}
+      - name: Create Release
+        uses: actions/create-release@v1
+        with:
+          tag_name: v${{ steps.package-version.outputs.current-version}}
+          release_name: v${{ steps.package-version.outputs.current-version}}
+          body: ${{steps.github_release.outputs.changelog}}
+          draft: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.token }}
+      - name: Invoke production deployment
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: ${{ inputs.deploy_workflow_name }}
+          token: ${{ secrets.token }}
+          inputs: '{ "tag": "v${{ steps.package-version.outputs.current-version}}", "environment": "production" }'
