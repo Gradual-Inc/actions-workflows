@@ -1,0 +1,23 @@
+{
+	"categories": [
+	    {
+		"title": "## 🚀 Features",
+		"labels": ["feature"]
+	    },
+	    {
+		"title": "## 🪲 Bug Fixes",
+		"labels": ["fix"]
+	    },
+	    {
+		"title": "## 🧰 Chore",
+		"labels": ["chore"]
+	    }
+	],
+	"sort": "ASC",
+	"template": "Changes from: ${{FROM_TAG}} to: ${{TO_TAG}}\n ${{CHANGELOG}}\n\n<details>\n<summary>Uncategorized</summary>\n\n${{UNCATEGORIZED}}\n</details>",
+	"pr_template": "- ${{TITLE}} #${{NUMBER}} @${{AUTHOR}}\n  - merged at: ${{MERGED_AT}}\n  - reviewed by: ${{REVIEWERS}}",
+	"empty_template": "No Changes",
+	"max_tags_to_fetch": 200,
+	"max_pull_requests": 200,
+	"max_back_track_time_days": 90
+    }
