@@ -6,10 +6,15 @@ on:
       token:
         required: true
 jobs:
-  update_pr_title:
-    name: Add Shortcut No to PR title
+  update-pr:
+    name: Update PR
     runs-on: ubuntu-latest
     steps:
+      - uses: TimonVS/pr-labeler-action@v3
+        with:
+          configuration-path: .github/pr-labeler.yml
+        env:
+          GITHUB_TOKEN: ${{ secrets.token }}
       - uses: tzkhan/pr-update-action@v2
         with:
           repo-token: "${{ secrets.token }}"
