@@ -20,4 +20,4 @@ jobs:
           repo-token: "${{ secrets.token }}"
           base-branch-regex: '[a-z\d-_.\\/]+'
           head-branch-regex: 'sc-\d+'
-          title-template: '[%headbranch%] '
+          title-template: '%headbranch% '
