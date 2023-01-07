@@ -14,7 +14,7 @@
 	    }
 	],
 	"sort": "ASC",
-	"template": "Changes from: ${{FROM_TAG}} to: ${{TO_TAG}}\n ${{CHANGELOG}}\n\n${{UNCATEGORIZED}}",
+	"template": "Changes from: ${{FROM_TAG}} to: ${{TO_TAG}} [diff](https://github.com/Gradual-Inc/server/compare/${{FROM_TAG}}...${{TO_TAG}})\n ${{CHANGELOG}}\n\n${{UNCATEGORIZED}}"
 	"pr_template": "- ${{TITLE}} #${{NUMBER}} @${{AUTHOR}}\n",
 	"empty_template": "No Changes",
 	"max_tags_to_fetch": 200,
